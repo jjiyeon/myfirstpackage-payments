@@ -1,7 +1,7 @@
 import { useContext } from 'react'
-import { CardInfoContext, UpdateCardInfoContext } from '../../context/paymentContext'
-import ui from '../../styles/index.module.css'
-import { Input } from '../common/Input'
+import { CardInfoContext, UpdateCardInfoContext } from '../../../context/paymentContext'
+import { Input } from '../../common/Input'
+import ui from '@/styles/index.module.css'
 
 export const CardPassword = () => {
   const cardInfo = useContext(CardInfoContext)
@@ -11,7 +11,7 @@ export const CardPassword = () => {
     <div className={ui['row-container']}>
       <Input
         type="password"
-        value={cardInfo.password || ''} //
+        value={cardInfo?.password || ''} //
         onChange={(e) => updateCardInfo({ ...cardInfo, password: e.target.value })}
         maxLength={2}
         size="xsmall"

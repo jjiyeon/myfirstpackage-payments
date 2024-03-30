@@ -1,12 +1,13 @@
 import { useContext } from 'react'
-import { CardInfoContext, UpdateCardInfoContext } from '../../context/paymentContext'
-import ui from '../../styles/index.module.css'
-import { Input } from '../common/Input'
+import { CardInfoContext, UpdateCardInfoContext } from '../../../context/paymentContext'
+import { Input } from '../../common/Input'
+import ui from '@/styles/index.module.css'
 
 export const CardName = () => {
   const cardInfo = useContext(CardInfoContext)
   const updateCardInfo = useContext(UpdateCardInfoContext)
 
+  if (!cardInfo) return null
   return (
     <div className={ui['input-container']}>
       <p>

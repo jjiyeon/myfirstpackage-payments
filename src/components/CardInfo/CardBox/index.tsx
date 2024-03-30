@@ -1,13 +1,18 @@
-import { useContext } from 'react'
-import { CardInfo, CardInfoContext } from '../../context/paymentContext'
-import { checkAllMasking } from '../../utils/check'
-import ui from '../../styles/index.module.css'
+import { Dispatch, SetStateAction, useContext } from 'react'
+import { CardInfo, CardInfoContext } from '../../../context/paymentContext'
+import { checkAllMasking } from '../../../utils/check'
+import ui from '@/styles/index.module.css'
 
-export const CardBox = ({ card }: { card?: CardInfo }) => {
+type CardBoxProps = {
+  card?: CardInfo
+  isOpenCardType: Dispatch<SetStateAction<boolean>>
+}
+
+export const CardBox = ({ card, isOpenCardType }: CardBoxProps) => {
   const cardInfo = useContext(CardInfoContext)
 
   const cardNumberValue = () => {
-    const cardNumber = cardInfo.cardNumber || card?.cardNumber
+    const cardNumber = cardInfo?.cardNumber || card?.cardNumber
     return {
       first: cardNumber?.first || '',
       second: cardNumber?.second || '',
@@ -20,11 +25,12 @@ export const CardBox = ({ card }: { card?: CardInfo }) => {
     if (cardInfo) return 'big-card__chip'
     return 'small-card__chip'
   }
+  // if (!cardInfo) return null
   return (
-    <div className={ui['card-box']}>
-      <div className={ui[`${'empty-card'}`]}>
+    <div className={ui['card-box']} role="button" onClick={() => isOpenCardType((state) => !state)}>
+      <div className={`${ui['empty-card']} ${ui[cardInfo.cardType?.theme || '']}`}>
         <div className={ui['card-top']}>
-          {cardInfo.cardType ? cardInfo.cardType + '카드' : card ? card.cardType + '카드' : ''}
+          {cardInfo?.cardType?.name ? cardInfo.cardType.name + '카드' : card ? card.cardType?.name + '카드' : ''}
         </div>
         <div className={ui['card-middle']}>
           <div className={ui[`${className()}`]}></div>

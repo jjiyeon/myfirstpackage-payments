@@ -1,7 +1,7 @@
 import { useContext } from 'react'
-import { CardInfoContext, UpdateCardInfoContext } from '../../context/paymentContext'
-import ui from '../../styles/index.module.css'
-import { Input } from '../common/Input'
+import { CardInfoContext, UpdateCardInfoContext } from '../../../context/paymentContext'
+import ui from '@/styles/index.module.css'
+import { Input } from '../../common/Input'
 
 const MONTH_MAX = 12
 const regx = new RegExp(/[0-9]/g)
@@ -10,6 +10,7 @@ export const CardDate = () => {
   const cardInfo = useContext(CardInfoContext)
   const updateCardInfo = useContext(UpdateCardInfoContext)
 
+  if (!cardInfo) return null
   return (
     <div className={ui['row-container']}>
       <p className={'input-title'}>만료일</p>
