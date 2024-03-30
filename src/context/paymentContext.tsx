@@ -1,5 +1,11 @@
 import { createContext, useState } from 'react'
 
+export type CardCompanyName = '국민' | '현대' | '삼성' | '우리' | '아멕스' | '비자' | '비씨' | '롯데'
+export type CardCompany = {
+  name: CardCompanyName
+  theme: 'tomato' | 'gray' | 'yellow' | 'blue' | 'green' | 'pupul' | 'orange' | 'black'
+  startNum: '55' | '34' | '37' | '36' | '53' | '40' | '48' | '44'
+}
 export type CardNumber = {
   first?: string
   second?: string
@@ -8,21 +14,37 @@ export type CardNumber = {
 }
 export type CardInfo = {
   cardNo?: number
-  cardNumber?: CardNumber
-  month?: string
-  year?: string
-  name?: string
-  password?: string
-  cvc?: string
-  cardType?: string
+  cardNumber: CardNumber | null
+  month: string | null
+  year: string | null
+  name: string | null
+  password: string | null
+  cvc: string | null
+  cardType: CardCompany | null
   cardAlias?: string
 }
 
-export const CardInfoContext = createContext<CardInfo>({})
+export const CardInfoContext = createContext<CardInfo>({
+  cardNumber: null,
+  month: null,
+  year: null,
+  name: null,
+  password: null,
+  cvc: null,
+  cardType: null,
+})
 export const UpdateCardInfoContext = createContext<(payload: CardInfo) => void>(() => {})
 
 const CardInfoProvider = ({ children }: { children: React.ReactNode }) => {
-  const [cardInfo, setCardInfo] = useState<CardInfo>({})
+  const [cardInfo, setCardInfo] = useState<CardInfo>({
+    cardNumber: null,
+    month: null,
+    year: null,
+    name: null,
+    password: null,
+    cvc: null,
+    cardType: null,
+  })
 
   return (
     <>
