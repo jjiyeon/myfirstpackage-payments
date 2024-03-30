@@ -1,16 +1,17 @@
 import { useContext } from 'react'
-import { CardInfoContext, UpdateCardInfoContext } from '../../context/paymentContext'
-import ui from '../../styles/index.module.css'
-import { Input } from '../common/Input'
+import { CardInfoContext, UpdateCardInfoContext } from '../../../context/paymentContext'
+import { Input } from '../../common/Input'
+import ui from '@/styles/index.module.css'
 
 export const CardNumber = () => {
   const cardInfo = useContext(CardInfoContext)
   const updateCardInfo = useContext(UpdateCardInfoContext)
 
   const handleInputChange = (key: string, value: string) => {
-    return updateCardInfo({ ...cardInfo, cardNumber: { ...cardInfo.cardNumber, [key]: value } })
+    return updateCardInfo({ ...cardInfo, cardNumber: { ...cardInfo?.cardNumber, [key]: value } })
   }
 
+  if (!cardInfo) return null
   return (
     <div className={ui['row-container']}>
       <p className={ui['input-title']}>카드번호</p>
