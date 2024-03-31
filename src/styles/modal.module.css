@@ -51,6 +51,9 @@
   height: 2.8rem;
   background-color: #94dacd;
 }
+.default {
+  background-color: #94dacd;
+}
 .tomato {
   background-color: tomato;
 }
