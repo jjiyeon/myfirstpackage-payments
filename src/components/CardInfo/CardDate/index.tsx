@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useEffect, useRef } from 'react'
 import { CardInfoContext, UpdateCardInfoContext } from '../../../context/paymentContext'
 import ui from '@/styles/index.module.css'
 import { Input } from '../../common/Input'
@@ -10,6 +10,21 @@ export const CardDate = () => {
   const cardInfo = useContext(CardInfoContext)
   const updateCardInfo = useContext(UpdateCardInfoContext)
 
+  const dateRef = useRef<HTMLInputElement>(null)
+
+  const { cardNumber, cardType } = cardInfo
+  useEffect(() => {
+    if (
+      cardNumber?.first &&
+      cardNumber.second &&
+      cardNumber.third &&
+      cardNumber.fourth?.length === 4 &&
+      cardType?.name
+    ) {
+      dateRef.current?.focus()
+    }
+  }, [cardNumber, cardType])
+
   if (!cardInfo) return null
   return (
     <div className={ui['row-container']}>
@@ -17,6 +32,7 @@ export const CardDate = () => {
       <div className={`${ui['input-row-container']} ${ui['w-50']}`}>
         <Input
           type="text"
+          ref={dateRef}
           value={cardInfo.month ?? ''}
           onChange={(e) => {
             const month = Number(e.target.value)
