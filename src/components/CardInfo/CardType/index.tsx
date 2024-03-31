@@ -21,7 +21,7 @@ export const CardType = ({ closeModal }: { closeModal: () => void }) => {
                   closeModal()
                 }}
               >
-                <div className={`${ui['modal-item-dot']} ${ui[value.theme]}`}></div>
+                <div className={`${ui['modal-item-dot']} ${ui[value.theme || 'default']}`}></div>
                 {value.name}카드
               </button>
             </div>
