@@ -10,18 +10,20 @@ export const CardDate = () => {
   const cardInfo = useContext(CardInfoContext)
   const updateCardInfo = useContext(UpdateCardInfoContext)
 
-  const dateRef = useRef<HTMLInputElement>(null)
+  const dateMMRef = useRef<HTMLInputElement>(null)
+  const dateYYRef = useRef<HTMLInputElement>(null)
 
   const { cardNumber, cardType } = cardInfo
+
   useEffect(() => {
     if (
-      cardNumber?.first &&
-      cardNumber.second &&
-      cardNumber.third &&
+      cardNumber?.first?.length === 4 &&
+      cardNumber.second?.length === 4 &&
+      cardNumber.third?.length === 4 &&
       cardNumber.fourth?.length === 4 &&
       cardType?.name
     ) {
-      dateRef.current?.focus()
+      dateMMRef.current?.focus()
     }
   }, [cardNumber, cardType])
 
@@ -32,7 +34,7 @@ export const CardDate = () => {
       <div className={`${ui['input-row-container']} ${ui['w-50']}`}>
         <Input
           type="text"
-          ref={dateRef}
+          ref={dateMMRef}
           value={cardInfo.month ?? ''}
           onChange={(e) => {
             const month = Number(e.target.value)
@@ -42,6 +44,7 @@ export const CardDate = () => {
 
             if (month > MONTH_MAX) return
             updateCardInfo({ ...cardInfo, month: e.target.value })
+            if (e.target.value.length === 4) dateYYRef.current?.focus()
           }}
           maxLength={2}
           placeholder="MM"
@@ -49,6 +52,7 @@ export const CardDate = () => {
         {cardInfo.month ? '/' : ''}
         <Input
           type="text"
+          ref={dateYYRef}
           value={cardInfo.year ?? ''}
           onChange={(e) => {
             if (e.target.value && !e.target.value.match(regx)) return
