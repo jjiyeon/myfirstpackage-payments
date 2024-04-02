@@ -8,3 +8,15 @@ export const checkAllMasking = (text: string, number: number) => {
   })
   return masking
 }
+
+export const getZeroToNineRandomNumber = (param = 10) => {
+  const candidate = Array.from({ length: param }, (n, i) => i)
+  const shuffle: Array<number> = []
+
+  while (candidate.length > 0) {
+    const random = Math.floor(Math.random() * candidate.length)
+    shuffle.push(candidate[random])
+    candidate.splice(random, 1)
+  }
+  return shuffle
+}
