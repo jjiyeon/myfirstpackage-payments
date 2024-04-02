@@ -25,10 +25,9 @@ export const CardBox = ({ card, isOpenCardType }: CardBoxProps) => {
     if (cardInfo) return 'big-card__chip'
     return 'small-card__chip'
   }
-  // if (!cardInfo) return null
   return (
     <div className={ui['card-box']} role="button" onClick={() => isOpenCardType && isOpenCardType((state) => !state)}>
-      <div className={`${ui['empty-card']} ${ui[cardInfo.cardType?.theme || '']}`}>
+      <div className={`${ui['empty-card']} ${ui[cardInfo.cardType?.theme || card?.cardType?.theme || '']}`}>
         <div className={ui['card-top']}>
           {cardInfo?.cardType?.name ? cardInfo.cardType.name + '카드' : card ? card.cardType?.name + '카드' : ''}
         </div>
