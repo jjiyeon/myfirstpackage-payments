@@ -14,7 +14,8 @@ const AddCard = ({ onStep }: StepProps) => {
 
   const handleNextButtonClick = () => {
     if (!cardInfo.cardType?.name) return setIsShowModal((state) => !state)
-    if (Object.keys(cardInfo).length < 9) return alert('모든 정보를 입력해주세요.')
+
+    if (Object.keys(cardInfo).length < 7) return alert('모든 정보를 입력해주세요.')
     updateCardInfo({ ...cardInfo, cardNo: cardList.length || 0 })
     if (onStep) onStep({ step: 'complete' })
   }
