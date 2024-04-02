@@ -15,10 +15,12 @@ interface InputProps {
   label?: string
   className?: string
   refObj?: MutableRefObject<string[]>
+  onFocus?: () => void
+  readOnly?: boolean
 }
 
 export const Input = forwardRef(
-  ({ type, backgroundColor, size, ...props }: InputProps, ref: ForwardedRef<HTMLInputElement>) => {
+  ({ type, backgroundColor, size, onFocus, ...props }: InputProps, ref: ForwardedRef<HTMLInputElement>) => {
     return (
       <div className={'input-container'}>
         <span className={'input-title'}>{props.label}</span>
@@ -27,8 +29,8 @@ export const Input = forwardRef(
           type={type}
           className={[`${props.className ?? 'input-basic'}`, `input-${size}`].join(' ')}
           style={{ backgroundColor }}
+          onFocus={onFocus}
           {...props}
-          autoFocus
         />
       </div>
     )
