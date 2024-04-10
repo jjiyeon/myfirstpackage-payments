@@ -1,26 +1,30 @@
-import { useContext, useEffect, useRef, useState } from 'react'
+import { ChangeEvent, useCallback, useContext, useEffect, useRef, useState } from 'react'
 import {
+  CARD_START_NUM_LIST,
+  CardCompany,
   CardCompanyName,
   CardInfoContext,
   CardStartNum,
   UpdateCardInfoContext,
   cardStartMatching,
-  cardStartNumArray,
 } from '../../../context/paymentContext'
 import { Input } from '../../common/Input'
 import ui from '@/styles/index.module.css'
 import PrivateNumber from '../PrivateNumber'
 
+enum CardNumberOrder {
+  first,
+  second,
+  third,
+  fourth,
+}
 export const CardNumber = () => {
   const cardInfo = useContext(CardInfoContext)
   const updateCardInfo = useContext(UpdateCardInfoContext)
 
-  const cardNumFirstRef = useRef<HTMLInputElement>(null)
-  const cardNumSecondRef = useRef<HTMLInputElement>(null)
-  const cardNumThirdRef = useRef<HTMLInputElement>(null)
-  const cardNumFourthRef = useRef<HTMLInputElement>(null)
+  const [cardNumberElements, setCardNumberElements] = useState<{ [name: string]: HTMLInputElement }>({})
 
-  const [privateKeypad, setprivateKeypad] = useState<{ key: string; isOpen: boolean }>({
+  const [privateKeypad, setPrivateKeypad] = useState<{ key: string; isOpen: boolean }>({
     key: '',
     isOpen: false,
   }) // 키패드 컴포넌트
@@ -30,27 +34,72 @@ export const CardNumber = () => {
     message: null,
   })
 
-  const handleInputChange = (key: string, value: string) => {
-    return updateCardInfo({
+  const attachCardNumberElements = useCallback((element: HTMLInputElement | null) => {
+    if (!element) return
+    const { name } = element
+
+    setCardNumberElements((prev) => ({ ...prev, [name]: element }))
+  }, [])
+
+  //카드 번호 업데이트
+  const changeCardNumber = (key: string, value: string) => {
+    updateCardInfo({
       ...cardInfo,
       cardNumber: { ...cardInfo?.cardNumber, [key]: value },
     })
   }
 
-  const handleExpactCard = (key: string, value: string) => {
-    const matchingKey = cardStartNumArray.filter((num) => value.match(num)) //매칭 되는 숫자 가져와서
-    const matchingInfo = cardStartMatching[Number(matchingKey[0])]
+  //매칭되는 카드 찾기
+  const getMatchingCardType = (value: string) => {
+    const matchingKey = CARD_START_NUM_LIST.filter((num) => value.match(num)) //매칭 되는 숫자 가져와서
+    const matchingInfo = cardStartMatching[matchingKey[0]]
 
-    return updateCardInfo({
-      ...cardInfo,
-      cardNumber: { ...cardInfo?.cardNumber, [key]: value },
-      cardType: {
-        name: matchingInfo ? (matchingInfo.type as CardCompanyName) : null,
-        theme: matchingInfo ? matchingInfo.color : null,
-        startNum: matchingKey[0] ? (matchingKey[0] as CardStartNum) : null,
-      },
-    })
+    return {
+      name: matchingInfo ? (matchingInfo.type as CardCompanyName) : null,
+      theme: matchingInfo ? matchingInfo.color : null,
+      startNum: matchingKey[0] ? (matchingKey[0] as CardStartNum) : null,
+    }
   }
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const {
+      target: { name, value },
+    } = e
+
+    if (value.match(/[^0-9]/g)) {
+      setError({ position: 'first', message: '숫자만 입력해주세요.' })
+      return
+    }
+
+    if (name === 'first') {
+      const cardType = getMatchingCardType(value)
+      updateCardInfo({
+        ...cardInfo,
+        cardNumber: { ...cardInfo?.cardNumber, [name]: value },
+        cardType,
+      })
+    } else {
+      changeCardNumber(name, value)
+    }
+
+    if (value.length === 4) {
+      const targetFocusElement =
+        cardNumberElements[CardNumberOrder[CardNumberOrder[name as keyof typeof CardNumberOrder] + 1]]
+
+      if (targetFocusElement) {
+        targetFocusElement.focus()
+      }
+    }
+
+    setError({ position: null, message: null })
+  }
+
+  useEffect(() => {
+    //이 부분이 고민입니다..ㅎ onFocus가 포커스가 이동할 때 한번만 실행되더라구요, 그래서 3번째 값을 확인하면 다음으로 focus하기가..흠.. 더 좋은 방법이 있을까요?
+    if (cardInfo.cardNumber?.third?.length === 4) {
+      cardNumberElements['fourth'].focus()
+    }
+  }, [cardInfo.cardNumber?.third])
 
   if (!cardInfo) return null
   return (
@@ -59,40 +108,29 @@ export const CardNumber = () => {
       <div className={ui['input-row-container']}>
         <Input
           name="first"
-          ref={cardNumFirstRef}
+          ref={attachCardNumberElements}
           value={cardInfo.cardNumber?.first ?? ''} //
-          onChange={(e) => {
-            if (e.target.value.match(/[^0-9]/g)) return setError({ position: 'first', message: '숫자만 입력해주세요.' })
-            handleExpactCard('first', e.target.value)
-            if (e.target.value.length === 4) cardNumSecondRef.current?.focus()
-            setError({ position: null, message: null })
-          }}
+          onChange={handleInputChange}
           type="text"
           maxLength={4}
         />
         <span>-</span>
         <Input
           name="second"
-          ref={cardNumSecondRef}
+          ref={attachCardNumberElements}
           value={cardInfo.cardNumber?.second ?? ''} //
-          onChange={(e) => {
-            if (e.target.value.match(/[^0-9]/g)) return setError({ position: 'first', message: '숫자만 입력해주세요.' })
-            handleInputChange('second', e.target.value)
-            if (e.target.value.length === 4) cardNumThirdRef.current?.focus()
-            setError({ position: null, message: null })
-          }}
+          onChange={handleInputChange}
           type="text"
           maxLength={4}
         />
         <span>-</span>
         <Input
           name="third"
-          ref={cardNumThirdRef}
+          ref={attachCardNumberElements}
           value={cardInfo.cardNumber?.third ?? ''} //
           readOnly={true}
           onFocus={() => {
-            if (!cardInfo.cardNumber?.third) setprivateKeypad({ key: 'third', isOpen: true })
-            if (cardInfo.cardNumber?.third?.length === 4) cardNumFourthRef.current?.focus()
+            if (!cardInfo.cardNumber?.third) setPrivateKeypad({ key: 'third', isOpen: true })
           }}
           type="password"
           maxLength={4}
@@ -100,11 +138,11 @@ export const CardNumber = () => {
         <span>-</span>
         <Input
           name="fourth"
-          ref={cardNumFourthRef}
+          ref={attachCardNumberElements}
           value={cardInfo.cardNumber?.fourth ?? ''} //
           readOnly={true}
           onFocus={() => {
-            if (!cardInfo.cardNumber?.fourth) setprivateKeypad({ key: 'fourth', isOpen: true })
+            if (!cardInfo.cardNumber?.fourth) setPrivateKeypad({ key: 'fourth', isOpen: true })
           }}
           type="password"
           maxLength={4}
@@ -113,9 +151,9 @@ export const CardNumber = () => {
       {error && <span style={{ fontSize: '12px', color: 'tomato' }}>{error.message}</span>}
       {privateKeypad.isOpen && (
         <PrivateNumber
-          length={4}
-          callback={(e) => handleInputChange(privateKeypad.key, e)}
-          close={() => setprivateKeypad((state) => ({ ...state, isOpen: false }))}
+          privateNumberLength={4}
+          changeNumber={(number) => changeCardNumber(privateKeypad.key, number)}
+          close={() => setPrivateKeypad((state) => ({ ...state, isOpen: false }))}
         />
       )}
     </div>
