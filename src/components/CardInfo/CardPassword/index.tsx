@@ -8,12 +8,12 @@ export const CardPassword = () => {
   const cardInfo = useContext(CardInfoContext)
   const updateCardInfo = useContext(UpdateCardInfoContext)
 
-  const [privateKeypad, setprivateKeypad] = useState<{ key: string; isOpen: boolean }>({
+  const [privateKeypad, setPrivateKeypad] = useState<{ key: string; isOpen: boolean }>({
     key: '',
     isOpen: false,
   }) // 키패드 컴포넌트
 
-  const handleInputChange = (key: string, value: string) => {
+  const changeNumber = (key: string, value: string) => {
     updateCardInfo({ ...cardInfo, [key]: value })
   }
 
@@ -23,7 +23,7 @@ export const CardPassword = () => {
         type="password"
         value={cardInfo?.password || ''} //
         onFocus={() => {
-          if (!cardInfo.password) setprivateKeypad({ key: 'password', isOpen: true })
+          if (!cardInfo.password) setPrivateKeypad({ key: 'password', isOpen: true })
         }}
         readOnly={true}
         size="xsmall"
@@ -32,9 +32,9 @@ export const CardPassword = () => {
 
       {privateKeypad.isOpen && (
         <PrivateNumber
-          length={2}
-          callback={(e) => handleInputChange(privateKeypad.key, e)}
-          close={() => setprivateKeypad((state) => ({ ...state, isOpen: false }))}
+          privateNumberLength={2}
+          changeNumber={(value) => changeNumber(privateKeypad.key, value)}
+          close={() => setPrivateKeypad((state) => ({ ...state, isOpen: false }))}
         />
       )}
     </div>

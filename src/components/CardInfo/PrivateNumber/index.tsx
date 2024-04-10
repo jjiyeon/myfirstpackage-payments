@@ -3,24 +3,25 @@ import { useEffect, useRef, useState } from 'react'
 import ui from '@/styles/index.module.css'
 
 type PrivateProps = {
-  length: number
-  callback: (param: string) => void
+  privateNumberLength: number
+  changeNumber: (param: string) => void
   close: () => void
 }
-const PrivateNumber = (props: PrivateProps) => {
+
+const PrivateNumber = ({ privateNumberLength, changeNumber, close }: PrivateProps) => {
   const numRef = useRef<string>('')
   const [keypad, setKeypad] = useState<Array<number>>()
 
   const handleButtonClick = (param: number) => {
     numRef.current += param
 
-    props.callback(numRef.current)
+    changeNumber(numRef.current)
 
-    if (numRef.current.length === props.length) props.close()
+    if (numRef.current.length === privateNumberLength) close()
   }
 
   useEffect(() => {
-    setKeypad(getZeroToNineRandomNumber(10)) // 이 숫자에 대한 const가 필요하겠지
+    setKeypad(getZeroToNineRandomNumber(10))
   }, [])
 
   if (!keypad) return null
