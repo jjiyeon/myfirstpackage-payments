@@ -11,11 +11,20 @@ const AddCard = ({ onStep }: StepProps) => {
   const cardList = useContext(CardListContext)
 
   const [isShowModal, setIsShowModal] = useState(false)
+  const openModal = () => setIsShowModal(true)
+  const closeModal = () => setIsShowModal(false)
 
   const handleNextButtonClick = () => {
-    if (!cardInfo.cardType?.name) return setIsShowModal((state) => !state)
+    if (!cardInfo.cardType?.name) {
+      setIsShowModal((state) => !state)
+      return
+    }
 
-    if (Object.keys(cardInfo).length < 7) return alert('모든 정보를 입력해주세요.')
+    if (Object.keys(cardInfo).length < 7) {
+      alert('모든 정보를 입력해주세요.')
+      return
+    }
+
     updateCardInfo({ ...cardInfo, cardNo: cardList.length || 0 })
     if (onStep) onStep({ step: 'complete' })
   }
@@ -29,7 +38,7 @@ const AddCard = ({ onStep }: StepProps) => {
             <button onClick={() => onStep && onStep({ step: 'list' })}>&lt;</button>
             &nbsp; 카드 추가
           </h2>
-          <CardBox isOpenCardType={setIsShowModal} />
+          <CardBox openModal={openModal} closeModal={closeModal} />
           <CardNumber />
           <CardDate />
           <CardName />
