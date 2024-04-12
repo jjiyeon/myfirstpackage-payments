@@ -1,24 +1,32 @@
 import { getZeroToNineRandomNumber } from '@/utils/check'
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import ui from '@/styles/index.module.css'
 
 type PrivateProps = {
   privateNumberLength: number
   changeNumber: (param: string) => void
+  nextFocus?: () => void
   close: () => void
 }
 
-const PrivateNumber = ({ privateNumberLength, changeNumber, close }: PrivateProps) => {
+const PrivateNumber = ({ privateNumberLength, changeNumber, nextFocus, close }: PrivateProps) => {
   const numRef = useRef<string>('')
+  const modalDimRef = useRef<HTMLDivElement>(null)
   const [keypad, setKeypad] = useState<Array<number>>()
 
-  const handleButtonClick = (param: number) => {
-    numRef.current += param
+  const handleButtonClick = useCallback(
+    (param: number) => {
+      numRef.current += param
 
-    changeNumber(numRef.current)
-
-    if (numRef.current.length === privateNumberLength) close()
-  }
+      changeNumber(numRef.current)
+      if (numRef.current.length === privateNumberLength) {
+        if (nextFocus) nextFocus
+        else close()
+        numRef.current = ''
+      }
+    },
+    [changeNumber, close]
+  )
 
   useEffect(() => {
     setKeypad(getZeroToNineRandomNumber(10))
@@ -26,7 +34,7 @@ const PrivateNumber = ({ privateNumberLength, changeNumber, close }: PrivateProp
 
   if (!keypad) return null
   return (
-    <div className={ui['modal-dimmed']}>
+    <div className={ui['modal-dimmed']} ref={modalDimRef} onClick={(e) => e.target === modalDimRef.current && close()}>
       <ul className={ui['modal']}>
         {keypad.map((value, idx) => (
           <li key={idx}>

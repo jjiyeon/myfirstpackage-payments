@@ -1,7 +1,6 @@
-import { ChangeEvent, useCallback, useContext, useEffect, useRef, useState } from 'react'
+import { ChangeEvent, useCallback, useContext, useState } from 'react'
 import {
   CARD_START_NUM_LIST,
-  CardCompany,
   CardCompanyName,
   CardInfoContext,
   CardStartNum,
@@ -34,12 +33,15 @@ export const CardNumber = () => {
     message: null,
   })
 
-  const attachCardNumberElements = useCallback((element: HTMLInputElement | null) => {
-    if (!element) return
-    const { name } = element
+  const attachCardNumberElements = useCallback(
+    (element: HTMLInputElement | null) => {
+      if (!element) return
+      const { name } = element
 
-    setCardNumberElements((prev) => ({ ...prev, [name]: element }))
-  }, [])
+      setCardNumberElements((prev) => ({ ...prev, [name]: element }))
+    },
+    [setCardNumberElements]
+  )
 
   //카드 번호 업데이트
   const changeCardNumber = (key: string, value: string) => {
@@ -49,9 +51,21 @@ export const CardNumber = () => {
     })
   }
 
+  //포커스
+  const setFocus = () => {
+    const targetFocusElement =
+      cardNumberElements[CardNumberOrder[CardNumberOrder[privateKeypad.key as keyof typeof CardNumberOrder] + 1]]
+
+    if (targetFocusElement && !targetFocusElement.value) {
+      targetFocusElement.focus()
+    } else {
+      setPrivateKeypad(() => ({ key: '', isOpen: false }))
+    }
+  }
+
   //매칭되는 카드 찾기
   const getMatchingCardType = (value: string) => {
-    const matchingKey = CARD_START_NUM_LIST.filter((num) => value.match(num)) //매칭 되는 숫자 가져와서
+    const matchingKey = CARD_START_NUM_LIST.filter((num) => value.match(num))
     const matchingInfo = cardStartMatching[matchingKey[0]]
 
     return {
@@ -72,7 +86,7 @@ export const CardNumber = () => {
     }
 
     if (name === 'first') {
-      const cardType = getMatchingCardType(value)
+      const cardType = getMatchingCardType(value.slice(0, 2))
       updateCardInfo({
         ...cardInfo,
         cardNumber: { ...cardInfo?.cardNumber, [name]: value },
@@ -93,13 +107,6 @@ export const CardNumber = () => {
 
     setError({ position: null, message: null })
   }
-
-  useEffect(() => {
-    //이 부분이 고민입니다..ㅎ onFocus가 포커스가 이동할 때 한번만 실행되더라구요, 그래서 3번째 값을 확인하면 다음으로 focus하기가..흠.. 더 좋은 방법이 있을까요?
-    if (cardInfo.cardNumber?.third?.length === 4) {
-      cardNumberElements['fourth'].focus()
-    }
-  }, [cardInfo.cardNumber?.third])
 
   if (!cardInfo) return null
   return (
@@ -130,7 +137,12 @@ export const CardNumber = () => {
           value={cardInfo.cardNumber?.third ?? ''} //
           readOnly={true}
           onFocus={() => {
-            if (!cardInfo.cardNumber?.third) setPrivateKeypad({ key: 'third', isOpen: true })
+            setPrivateKeypad({ key: 'third', isOpen: true })
+
+            const third = cardInfo.cardNumber?.third
+            if (third) {
+              changeCardNumber('third', '')
+            }
           }}
           type="password"
           maxLength={4}
@@ -142,18 +154,31 @@ export const CardNumber = () => {
           value={cardInfo.cardNumber?.fourth ?? ''} //
           readOnly={true}
           onFocus={() => {
-            if (!cardInfo.cardNumber?.fourth) setPrivateKeypad({ key: 'fourth', isOpen: true })
+            setPrivateKeypad(() => ({ key: 'fourth', isOpen: true }))
+
+            const fourth = cardInfo.cardNumber?.fourth
+            if (fourth) {
+              changeCardNumber('fourth', '')
+            }
           }}
           type="password"
           maxLength={4}
         />
       </div>
       {error && <span style={{ fontSize: '12px', color: 'tomato' }}>{error.message}</span>}
-      {privateKeypad.isOpen && (
+
+      {privateKeypad.key && (
         <PrivateNumber
           privateNumberLength={4}
-          changeNumber={(number) => changeCardNumber(privateKeypad.key, number)}
-          close={() => setPrivateKeypad((state) => ({ ...state, isOpen: false }))}
+          changeNumber={(number) => {
+            changeCardNumber(privateKeypad.key, number)
+
+            if (number.length === 4) setFocus()
+          }}
+          nextFocus={() => {
+            setFocus()
+          }}
+          close={() => setPrivateKeypad(() => ({ key: '', isOpen: false }))}
         />
       )}
     </div>
