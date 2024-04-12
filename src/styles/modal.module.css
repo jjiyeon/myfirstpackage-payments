@@ -51,6 +51,9 @@
   height: 2.8rem;
   background-color: #94dacd;
 }
+.default {
+  background-color: #94dacd;
+}
 .tomato {
   background-color: tomato;
 }
@@ -86,4 +89,22 @@
   align-items: center;
 
   padding: 0;
+}
+
+ul.modal {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  text-align: center;
+  list-style: none;
+  padding: 0;
+}
+li {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+
+  button {
+    width: 100%;
+  }
 }

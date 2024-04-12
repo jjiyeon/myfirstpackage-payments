@@ -1,14 +1,15 @@
-import { Dispatch, SetStateAction, useContext } from 'react'
-import { CardInfo, CardInfoContext } from '../../../context/paymentContext'
+import { useContext } from 'react'
+import { CardInfo, CardInfoContext } from '@/context/paymentContext'
 import { checkAllMasking } from '../../../utils/check'
 import ui from '@/styles/index.module.css'
 
 type CardBoxProps = {
   card?: CardInfo
-  isOpenCardType: Dispatch<SetStateAction<boolean>>
+  openModal?: () => void
+  closeModal?: () => void
 }
 
-export const CardBox = ({ card, isOpenCardType }: CardBoxProps) => {
+export const CardBox = ({ card, closeModal }: CardBoxProps) => {
   const cardInfo = useContext(CardInfoContext)
 
   const cardNumberValue = () => {
@@ -25,12 +26,12 @@ export const CardBox = ({ card, isOpenCardType }: CardBoxProps) => {
     if (cardInfo) return 'big-card__chip'
     return 'small-card__chip'
   }
-  // if (!cardInfo) return null
+
   return (
-    <div className={ui['card-box']} role="button" onClick={() => isOpenCardType((state) => !state)}>
-      <div className={`${ui['empty-card']} ${ui[cardInfo.cardType?.theme || '']}`}>
+    <div className={ui['card-box']} role="button" onClick={closeModal}>
+      <div className={`${ui['empty-card']} ${ui[cardInfo.cardType?.theme || card?.cardType?.theme || '']}`}>
         <div className={ui['card-top']}>
-          {cardInfo?.cardType?.name ? cardInfo.cardType.name + '카드' : card ? card.cardType?.name + '카드' : ''}
+          {cardInfo.cardType?.name ? cardInfo.cardType.name + '카드' : card ? card.cardType?.name + '카드' : ''}
         </div>
         <div className={ui['card-middle']}>
           <div className={ui[`${className()}`]}></div>

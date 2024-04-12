@@ -36,7 +36,7 @@ const CardList = ({ onStep }: StepProps) => {
                 >
                   <div>
                     <CardBox card={item} />
-                    <span className={ui['card-nickname']}>{item.cardAlias}</span>
+                    <span className={ui['card-nickname']}>{item.cardAlias ?? item.cardType?.name}</span>
                   </div>
                 </button>
                 <div className={ui['card-delete-wrapper']}>
