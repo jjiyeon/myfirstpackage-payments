@@ -2,7 +2,6 @@ import { useContext, useState } from 'react'
 import { CardInfoContext, UpdateCardInfoContext } from '../context/paymentContext'
 import { CardBox, CardCvc, CardName, CardNumber, CardPassword, CardDate } from '@/components'
 import { StepProps } from './Payments'
-import { CardListContext } from '../context/cardListContext'
 import ui from '../styles/index.module.css'
 import { CardType } from '@/components/CardInfo/CardType'
 

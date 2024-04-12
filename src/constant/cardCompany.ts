@@ -23,7 +23,7 @@ export const cardCompanyList: Array<CardCompany> = [
   },
   {
     name: '아멕스',
-    theme: 'pupul',
+    theme: 'purple',
     startNum: '37',
   },
   {

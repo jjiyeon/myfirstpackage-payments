@@ -1,4 +1,4 @@
-import { ForwardedRef, MutableRefObject, RefObject, forwardRef } from 'react'
+import { ForwardedRef, MutableRefObject, forwardRef } from 'react'
 import './input.css'
 
 interface InputProps {
