@@ -9,7 +9,7 @@ export const CardCvc = () => {
   const updateCardInfo = useContext(UpdateCardInfoContext)
 
   const [onFocus, setOnFocus] = useState(false)
-  const [privateKeypad, setprivateKeypad] = useState<{ key: string; isOpen: boolean }>({
+  const [privateKeypad, setPrivateKeypad] = useState<{ key: string; isOpen: boolean }>({
     key: '',
     isOpen: false,
   }) // 키패드 컴포넌트
@@ -36,7 +36,9 @@ export const CardCvc = () => {
         type="password"
         value={cardInfo.cvc || ''}
         onFocus={() => {
-          if (!cardInfo.cvc) setprivateKeypad({ key: 'cvc', isOpen: true })
+          setPrivateKeypad({ key: 'cvc', isOpen: true })
+          const { cvc } = cardInfo
+          if (cvc) handleInputChange(privateKeypad.key, '')
         }}
         readOnly={true}
         size="small"
@@ -51,9 +53,9 @@ export const CardCvc = () => {
 
       {privateKeypad.isOpen && (
         <PrivateNumber
-          length={3}
-          callback={(e) => handleInputChange(privateKeypad.key, e)}
-          close={() => setprivateKeypad((state) => ({ ...state, isOpen: false }))}
+          privateNumberLength={3}
+          changeNumber={(value) => handleInputChange(privateKeypad.key, value)}
+          close={() => setPrivateKeypad((state) => ({ ...state, isOpen: false }))}
         />
       )}
     </div>

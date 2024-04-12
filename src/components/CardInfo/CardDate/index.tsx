@@ -57,6 +57,7 @@ export const CardDate = () => {
           onChange={(e) => {
             if (e.target.value && !e.target.value.match(regx)) return
             if (e.target.value === '00') return
+
             updateCardInfo({ ...cardInfo, year: e.target.value })
           }}
           maxLength={2}

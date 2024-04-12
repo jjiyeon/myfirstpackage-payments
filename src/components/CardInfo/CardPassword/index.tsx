@@ -23,7 +23,10 @@ export const CardPassword = () => {
         type="password"
         value={cardInfo?.password || ''} //
         onFocus={() => {
-          if (!cardInfo.password) setPrivateKeypad({ key: 'password', isOpen: true })
+          setPrivateKeypad({ key: 'password', isOpen: true })
+
+          const password = cardInfo.password
+          if (password) changeNumber(privateKeypad.key, '')
         }}
         readOnly={true}
         size="xsmall"
@@ -34,7 +37,7 @@ export const CardPassword = () => {
         <PrivateNumber
           privateNumberLength={2}
           changeNumber={(value) => changeNumber(privateKeypad.key, value)}
-          close={() => setPrivateKeypad((state) => ({ ...state, isOpen: false }))}
+          close={() => setPrivateKeypad(() => ({ key: '', isOpen: false }))}
         />
       )}
     </div>
