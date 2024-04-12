@@ -1,18 +1,20 @@
 import { useContext, useState } from 'react'
 import { CardInfoContext, UpdateCardInfoContext } from '../context/paymentContext'
-import { CardBox, CardCvc, CardName, CardNumber, CardPassword, CardDate, CardType } from '@/components'
+import { CardBox, CardCvc, CardName, CardNumber, CardPassword, CardDate } from '@/components'
 import { StepProps } from './Payments'
 import { CardListContext } from '../context/cardListContext'
 import ui from '../styles/index.module.css'
+import { CardType } from '@/components/CardInfo/CardType'
 
 const AddCard = ({ onStep }: StepProps) => {
   const cardInfo = useContext(CardInfoContext)
   const updateCardInfo = useContext(UpdateCardInfoContext)
-  const cardList = useContext(CardListContext)
 
   const [isShowModal, setIsShowModal] = useState(false)
   const openModal = () => setIsShowModal(true)
   const closeModal = () => setIsShowModal(false)
+
+  const today = new Date()
 
   const handleNextButtonClick = () => {
     if (!cardInfo.cardType?.name) {
@@ -20,12 +22,26 @@ const AddCard = ({ onStep }: StepProps) => {
       return
     }
 
-    if (Object.keys(cardInfo).length < 7) {
+    if (Object.keys(cardInfo).length < 6) {
       alert('모든 정보를 입력해주세요.')
       return
     }
 
-    updateCardInfo({ ...cardInfo, cardNo: cardList.length || 0 })
+    const { year, month } = cardInfo
+
+    const todayYear = today.getUTCFullYear().toString().slice(2)
+    const todayMonth = today.getMonth() + 1
+
+    if (Number(todayYear) > Number(year)) {
+      alert('유효기간을 확인해주세요')
+      return
+    }
+    if (Number(todayYear) === Number(year) && Number(todayMonth) > Number(month)) {
+      alert('유효기간을 확인해주세요')
+      return
+    }
+
+    updateCardInfo({ ...cardInfo, cardNo: today.getTime() })
     if (onStep) onStep({ step: 'complete' })
   }
 
