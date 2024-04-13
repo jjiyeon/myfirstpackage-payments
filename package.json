@@ -1,13 +1,31 @@
 {
   "name": "myfirstpackage-payments",
   "private": false,
-  "version": "0.0.3",
+  "version": "0.0.4",
   "repository": "https://github.com/jjiyeon/myfirstpackage-payments/tree/jjiyeon-step3",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
     "dist"
   ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
+    },
+    "./browser/specific/main.js": {
+      "import": "./browser/specific/main.js",
+      "require": "./browser/specific/main.js"
+    }
+  },
+  "keywords": [
+    "react",
+    "myfirstpackage-payments"
+  ],
+  "author": {
+    "name": "jjieyon",
+    "email": "ejy1105@gmail.com"
+  },
   "license": "MIT",
   "type": "module",
   "scripts": {
