@@ -1,7 +1,16 @@
 {
   "name": "myfirstpackage-payments",
   "private": false,
-  "version": "0.0.4",
+  "version": "0.0.5",
+  "keywords": [
+    "react",
+    "myfirstpackage-payments"
+  ],
+  "author": {
+    "name": "jjieyon",
+    "email": "ejy1105@gmail.com"
+  },
+  "license": "MIT",
   "repository": "https://github.com/jjiyeon/myfirstpackage-payments/tree/jjiyeon-step3",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -18,15 +27,6 @@
       "require": "./browser/specific/main.js"
     }
   },
-  "keywords": [
-    "react",
-    "myfirstpackage-payments"
-  ],
-  "author": {
-    "name": "jjieyon",
-    "email": "ejy1105@gmail.com"
-  },
-  "license": "MIT",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -34,7 +34,8 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "prepare": "rm -rf dist && tsc && vite build"
   },
   "dependencies": {
     "@xstate/react": "^4.1.0",
