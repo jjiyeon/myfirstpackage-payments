@@ -43,7 +43,7 @@ export type CardInfo = {
 export const CardInfoContext = createContext<CardInfo>({})
 export const UpdateCardInfoContext = createContext<(payload: CardInfo) => void>(() => {})
 
-const CardInfoProvider = ({ children }: { children: React.ReactNode }) => {
+export const CardInfoProvider = ({ children }: { children: React.ReactNode }) => {
   const [cardInfo, setCardInfo] = useState<CardInfo>({})
 
   return (

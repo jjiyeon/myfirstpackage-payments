@@ -5,3 +5,5 @@ export * from './CardInfo/CardCvc'
 export * from './CardInfo/CardType'
 export * from './CardInfo/CardBox'
 export * from './CardInfo/CardDate'
+
+export * from './common/Input'
