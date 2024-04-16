@@ -1,15 +1,9 @@
-import { ChangeEvent, useCallback, useContext, useState } from 'react'
-import {
-  CARD_START_NUM_LIST,
-  CardCompanyName,
-  CardInfoContext,
-  CardStartNum,
-  UpdateCardInfoContext,
-  cardStartMatching,
-} from '../../../context/paymentContext'
+import { ChangeEvent, useCallback, useState } from 'react'
+import { CARD_START_NUM_LIST, CardCompanyName, CardStartNum, cardStartMatching } from '../../../context/paymentContext'
 import { Input } from '../../common/Input'
 import ui from '@/styles/index.module.css'
 import PrivateNumber from '../PrivateNumber'
+import useCardInfo from '@/hooks/useCardInfo'
 
 enum CardNumberOrder {
   first,
@@ -18,15 +12,8 @@ enum CardNumberOrder {
   fourth,
 }
 export const CardNumber = () => {
-  const cardInfo = useContext(CardInfoContext)
-  const updateCardInfo = useContext(UpdateCardInfoContext)
-
+  const { cardInfo, updateCardInfo, privateKeypad, setPrivateKeypad } = useCardInfo()
   const [cardNumberElements, setCardNumberElements] = useState<{ [name: string]: HTMLInputElement }>({})
-
-  const [privateKeypad, setPrivateKeypad] = useState<{ key: string; isOpen: boolean }>({
-    key: '',
-    isOpen: false,
-  }) // 키패드 컴포넌트
 
   const [error, setError] = useState<{ position: string | null; message: string | null }>({
     position: null,
@@ -47,7 +34,13 @@ export const CardNumber = () => {
   const changeCardNumber = (key: string, value: string) => {
     updateCardInfo({
       ...cardInfo,
-      cardNumber: { ...cardInfo?.cardNumber, [key]: value },
+      cardNumber: {
+        first: cardInfo.cardNumber?.first ?? '',
+        second: cardInfo.cardNumber?.second ?? '',
+        third: cardInfo.cardNumber?.third ?? '',
+        fourth: cardInfo.cardNumber?.fourth ?? '',
+        [key]: value,
+      },
     })
   }
 
@@ -75,6 +68,10 @@ export const CardNumber = () => {
     }
   }
 
+  const handleFocus = (name: string) => {
+    setPrivateKeypad(() => ({ key: name, isOpen: true }))
+  }
+
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const {
       target: { name, value },
@@ -89,7 +86,12 @@ export const CardNumber = () => {
       const cardType = getMatchingCardType(value.slice(0, 2))
       updateCardInfo({
         ...cardInfo,
-        cardNumber: { ...cardInfo?.cardNumber, [name]: value },
+        cardNumber: {
+          second: cardInfo.cardNumber?.second ?? '',
+          third: cardInfo.cardNumber?.third ?? '',
+          fourth: cardInfo.cardNumber?.fourth ?? '',
+          [name]: value,
+        },
         cardType,
       })
     } else {
@@ -136,14 +138,7 @@ export const CardNumber = () => {
           ref={attachCardNumberElements}
           value={cardInfo.cardNumber?.third ?? ''} //
           readOnly={true}
-          onFocus={() => {
-            setPrivateKeypad({ key: 'third', isOpen: true })
-
-            const third = cardInfo.cardNumber?.third
-            if (third) {
-              changeCardNumber('third', '')
-            }
-          }}
+          onFocus={(name) => handleFocus(name)}
           type="password"
           maxLength={4}
         />
@@ -153,14 +148,7 @@ export const CardNumber = () => {
           ref={attachCardNumberElements}
           value={cardInfo.cardNumber?.fourth ?? ''} //
           readOnly={true}
-          onFocus={() => {
-            setPrivateKeypad(() => ({ key: 'fourth', isOpen: true }))
-
-            const fourth = cardInfo.cardNumber?.fourth
-            if (fourth) {
-              changeCardNumber('fourth', '')
-            }
-          }}
+          onFocus={(name) => handleFocus(name)}
           type="password"
           maxLength={4}
         />
@@ -172,8 +160,6 @@ export const CardNumber = () => {
           privateNumberLength={4}
           changeNumber={(number) => {
             changeCardNumber(privateKeypad.key, number)
-
-            if (number.length === 4) setFocus()
           }}
           nextFocus={() => {
             setFocus()
