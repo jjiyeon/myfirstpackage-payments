@@ -1,14 +1,13 @@
-import { useContext, useEffect, useRef } from 'react'
-import { CardInfoContext, UpdateCardInfoContext } from '../../../context/paymentContext'
+import { useEffect, useRef } from 'react'
 import ui from '@/styles/index.module.css'
 import { Input } from '../../common/Input'
+import useCardInfo from '@/hooks/useCardInfo'
 
 const MONTH_MAX = 12
 const regx = new RegExp(/[0-9]/g)
 
 export const CardDate = () => {
-  const cardInfo = useContext(CardInfoContext)
-  const updateCardInfo = useContext(UpdateCardInfoContext)
+  const { cardInfo, updateCardInfo } = useCardInfo()
 
   const dateMMRef = useRef<HTMLInputElement>(null)
   const dateYYRef = useRef<HTMLInputElement>(null)
@@ -20,8 +19,7 @@ export const CardDate = () => {
       cardNumber?.first?.length === 4 &&
       cardNumber.second?.length === 4 &&
       cardNumber.third?.length === 4 &&
-      cardNumber.fourth?.length === 4 &&
-      cardType?.name
+      cardNumber.fourth?.length === 4
     ) {
       dateMMRef.current?.focus()
     }
@@ -37,14 +35,15 @@ export const CardDate = () => {
           ref={dateMMRef}
           value={cardInfo.month ?? ''}
           onChange={(e) => {
-            const month = Number(e.target.value)
+            const { value } = e.target
+            const month = Number(value)
 
-            if (e.target.value && !e.target.value.match(regx)) return
-            if (e.target.value === '00') return
+            if (value && !value.match(regx)) return
+            if (value === '00') return
 
             if (month > MONTH_MAX) return
-            updateCardInfo({ ...cardInfo, month: e.target.value })
-            if (e.target.value.length === 4) dateYYRef.current?.focus()
+            updateCardInfo({ ...cardInfo, month: value })
+            if (value.length === 4) dateYYRef.current?.focus()
           }}
           maxLength={2}
           placeholder="MM"
@@ -55,10 +54,11 @@ export const CardDate = () => {
           ref={dateYYRef}
           value={cardInfo.year ?? ''}
           onChange={(e) => {
-            if (e.target.value && !e.target.value.match(regx)) return
-            if (e.target.value === '00') return
+            const { value } = e.target
+            if (value && !value.match(regx)) return
+            if (value === '00') return
 
-            updateCardInfo({ ...cardInfo, year: e.target.value })
+            updateCardInfo({ ...cardInfo, year: value })
           }}
           maxLength={2}
           placeholder="YY"

@@ -1,17 +1,10 @@
-import { useContext, useState } from 'react'
-import { CardInfoContext, UpdateCardInfoContext } from '../../../context/paymentContext'
 import { Input } from '../../common/Input'
 import ui from '@/styles/index.module.css'
 import PrivateNumber from '../PrivateNumber'
+import useCardInfo from '@/hooks/useCardInfo'
 
 export const CardPassword = () => {
-  const cardInfo = useContext(CardInfoContext)
-  const updateCardInfo = useContext(UpdateCardInfoContext)
-
-  const [privateKeypad, setPrivateKeypad] = useState<{ key: string; isOpen: boolean }>({
-    key: '',
-    isOpen: false,
-  }) // 키패드 컴포넌트
+  const { cardInfo, updateCardInfo, privateKeypad, setPrivateKeypad } = useCardInfo()
 
   const changeNumber = (key: string, value: string) => {
     updateCardInfo({ ...cardInfo, [key]: value })

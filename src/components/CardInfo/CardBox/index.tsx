@@ -1,7 +1,7 @@
-import { useContext } from 'react'
-import { CardInfo, CardInfoContext } from '@/context/paymentContext'
+import { CardInfo } from '@/context/paymentContext'
 import { checkAllMasking } from '../../../utils/check'
 import ui from '@/styles/index.module.css'
+import useCardInfo from '@/hooks/useCardInfo'
 
 type CardBoxProps = {
   card?: CardInfo
@@ -10,10 +10,10 @@ type CardBoxProps = {
 }
 
 export const CardBox = ({ card, closeModal }: CardBoxProps) => {
-  const cardInfo = useContext(CardInfoContext)
+  const { cardInfo } = useCardInfo()
 
   const cardNumberValue = () => {
-    const cardNumber = cardInfo?.cardNumber || card?.cardNumber
+    const cardNumber = cardInfo.cardNumber || card?.cardNumber
     return {
       first: cardNumber?.first || '',
       second: cardNumber?.second || '',
