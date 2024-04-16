@@ -22,11 +22,13 @@ export type CardCompany = {
   theme?: CardColor | null
   startNum?: CardStartNum | null
 }
+
 export type CardNumber = {
-  first?: string
-  second?: string
-  third?: string
-  fourth?: string
+  [index: string]: string
+  first: string
+  second: string
+  third: string
+  fourth: string
 }
 export type CardInfo = {
   cardNo?: number
