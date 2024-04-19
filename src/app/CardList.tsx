@@ -18,7 +18,6 @@ const CardList = ({ onStep }: StepProps) => {
 
   return (
     <main>
-      <h2>5️⃣ 카드 목록</h2>
       <div className={ui['root']}>
         <div className={`${ui['app']} ${ui['flex-column-center']}`}>
           <div className={ui['flex-center']}>

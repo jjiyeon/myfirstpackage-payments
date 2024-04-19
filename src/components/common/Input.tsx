@@ -1,4 +1,4 @@
-import { ForwardedRef, MutableRefObject, RefObject, forwardRef } from 'react'
+import { ForwardedRef, MutableRefObject, forwardRef } from 'react'
 import './input.css'
 
 interface InputProps {
@@ -29,7 +29,7 @@ export const Input = forwardRef(
           type={type}
           className={[`${props.className ?? 'input-basic'}`, `input-${size}`].join(' ')}
           style={{ backgroundColor }}
-          onFocus={() => onFocus && onFocus(props.name || '')}
+          onFocus={() => onFocus && onFocus(props.name ?? '')}
           {...props}
         />
       </div>
