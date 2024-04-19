@@ -35,7 +35,6 @@ const AddComplete = ({ onStep }: StepProps) => {
   if (!cardInfo) return null
   return (
     <main>
-      <h2>4️⃣ 카드 추가 완료</h2>
       <div className={ui['root']}>
         <div className={`${ui['app']} ${ui['flex-column-center']}`}>
           <div className={ui['flex-column-center']}>

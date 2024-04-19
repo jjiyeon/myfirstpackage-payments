@@ -46,7 +46,6 @@ const AddCard = ({ onStep }: StepProps) => {
 
   return (
     <main>
-      <h2>1️⃣ 카드 추가</h2>
       <div className={ui['root']}>
         <div className={ui['app']}>
           <h2 className={ui['page-title']}>

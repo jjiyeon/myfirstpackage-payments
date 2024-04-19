@@ -15,7 +15,7 @@ interface InputProps {
   label?: string
   className?: string
   refObj?: MutableRefObject<string[]>
-  onFocus?: () => void
+  onFocus?: (value: string) => void
   readOnly?: boolean
 }
 
@@ -29,7 +29,7 @@ export const Input = forwardRef(
           type={type}
           className={[`${props.className ?? 'input-basic'}`, `input-${size}`].join(' ')}
           style={{ backgroundColor }}
-          onFocus={onFocus}
+          onFocus={() => onFocus && onFocus(props.name ?? '')}
           {...props}
         />
       </div>

@@ -1,18 +1,12 @@
-import { useContext, useState } from 'react'
-import { CardInfoContext, UpdateCardInfoContext } from '../../../context/paymentContext'
+import { useState } from 'react'
 import { Input } from '../../common/Input'
 import ui from '@/styles/index.module.css'
 import PrivateNumber from '../PrivateNumber'
+import useCardInfo from '@/hooks/useCardInfo'
 
 export const CardCvc = () => {
-  const cardInfo = useContext(CardInfoContext)
-  const updateCardInfo = useContext(UpdateCardInfoContext)
-
+  const { cardInfo, updateCardInfo, privateKeypad, setPrivateKeypad } = useCardInfo()
   const [onFocus, setOnFocus] = useState(false)
-  const [privateKeypad, setPrivateKeypad] = useState<{ key: string; isOpen: boolean }>({
-    key: '',
-    isOpen: false,
-  }) // 키패드 컴포넌트
 
   //css 처리도 방법일듯..
   const handleMouseEnter = () => {

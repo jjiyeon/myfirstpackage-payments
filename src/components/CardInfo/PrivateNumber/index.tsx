@@ -11,7 +11,6 @@ type PrivateProps = {
 
 const PrivateNumber = ({ privateNumberLength, changeNumber, nextFocus, close }: PrivateProps) => {
   const numRef = useRef<string>('')
-  const modalDimRef = useRef<HTMLDivElement>(null)
   const [keypad, setKeypad] = useState<Array<number>>()
 
   const handleButtonClick = useCallback(
@@ -20,7 +19,7 @@ const PrivateNumber = ({ privateNumberLength, changeNumber, nextFocus, close }: 
 
       changeNumber(numRef.current)
       if (numRef.current.length === privateNumberLength) {
-        if (nextFocus) nextFocus
+        if (nextFocus) nextFocus()
         else close()
         numRef.current = ''
       }
@@ -34,7 +33,7 @@ const PrivateNumber = ({ privateNumberLength, changeNumber, nextFocus, close }: 
 
   if (!keypad) return null
   return (
-    <div className={ui['modal-dimmed']} ref={modalDimRef} onClick={(e) => e.target === modalDimRef.current && close()}>
+    <div className={ui['modal-dimmed']} onClick={(e) => e.target === e.currentTarget && close()}>
       <ul className={ui['modal']}>
         {keypad.map((value, idx) => (
           <li key={idx}>

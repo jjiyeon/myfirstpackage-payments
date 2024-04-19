@@ -1,11 +1,9 @@
-import { useContext } from 'react'
-import { CardInfoContext, UpdateCardInfoContext } from '../../../context/paymentContext'
 import { Input } from '../../common/Input'
 import ui from '@/styles/index.module.css'
+import useCardInfo from '@/hooks/useCardInfo'
 
 export const CardName = () => {
-  const cardInfo = useContext(CardInfoContext)
-  const updateCardInfo = useContext(UpdateCardInfoContext)
+  const { cardInfo, updateCardInfo } = useCardInfo()
 
   if (!cardInfo) return null
   return (
