@@ -1,7 +1,7 @@
 {
   "name": "myfirstpackage-payments",
   "private": false,
-  "version": "0.0.9",
+  "version": "0.1.0",
   "keywords": [
     "react",
     "myfirstpackage-payments"
@@ -44,6 +44,7 @@
     "xstate": "^5.9.1"
   },
   "devDependencies": {
+    "@originjs/vite-plugin-commonjs": "^1.0.3",
     "@storybook/addon-essentials": "^7.6.17",
     "@storybook/addon-interactions": "^7.6.17",
     "@storybook/addon-links": "^7.6.17",

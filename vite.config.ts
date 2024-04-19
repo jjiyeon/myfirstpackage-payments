@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react'
 import * as path from 'path'
 
 import dts from 'vite-plugin-dts'
+import { viteCommonjs } from '@originjs/vite-plugin-commonjs'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -28,7 +29,7 @@ export default defineConfig({
       esmExternals: ['react'],
     },
   },
-  plugins: [react(), dts()],
+  plugins: [react(), dts(), viteCommonjs()],
   resolve: {
     alias: [
       { find: 'src', replacement: path.resolve(__dirname, 'src') },
