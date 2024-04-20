@@ -1,7 +1,7 @@
 {
   "name": "myfirstpackage-payments",
   "private": false,
-  "version": "0.1.0",
+  "version": "0.1.1",
   "keywords": [
     "react",
     "myfirstpackage-payments"
@@ -25,6 +25,10 @@
     "./browser/specific/main.js": {
       "import": "./browser/specific/main.js",
       "require": "./browser/specific/main.js"
+    },
+    "./styles": {
+      "import": "./dist/style.css",
+      "require": "./dist/style.css"
     }
   },
   "type": "module",
