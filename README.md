@@ -28,6 +28,11 @@ pnpm add myfirstpackage-payments
 import 'myfirstpackage-payments/styles'
 import { Payments } from 'myfirstpackage-payments'
 
+
+<CardInfoProvider>
+  <App>
+</CardInfoProvider>
+
 ...
 isPaymentApp && (
   <Payments />
@@ -38,3 +43,14 @@ isPaymentApp && (
 스타일의 경우, width 사이즈를 100%로 잡아두었습니다.
 상위에서 사이즈를 잡아서 사용하시는걸 생각하였어요.
 다른 레이아웃을 고민중이시라면 공유 부탁드려요😊
+
+외부에서는 hook을 통하여 값을 확인할 수 있습니다.
+
+```
+const  {
+    cardInfo,   // 카드를 등록할 때, 카드 정보값 컨텍스트
+    updateCardInfo, // 카드 등록을 위한 업데이트 컨텍스트
+    cardList, // 등록된 카드리스트 컨텍스트
+    updateCardList, // 카드 리스트 업데이트 컨텍스트
+  } = useCardInfo()
+```
