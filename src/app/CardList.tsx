@@ -1,15 +1,11 @@
-import { useContext } from 'react'
-import { CardInfo, UpdateCardInfoContext } from '../context/paymentContext'
+import { CardInfo } from '../context/paymentContext'
 import { CardBox } from '../components'
 import ui from '../styles/index.module.css'
 import { StepProps } from './Payments'
-import { CardListContext, UpdateCardListContext } from '../context/cardListContext'
+import useCardInfo from '@/hooks/useCardInfo'
 
 const CardList = ({ onStep }: StepProps) => {
-  const updateCardInfo = useContext(UpdateCardInfoContext)
-
-  const cardList = useContext(CardListContext)
-  const updateCardList = useContext(UpdateCardListContext)
+  const { updateCardInfo, cardList, updateCardList } = useCardInfo()
 
   const deleteCard = (item: CardInfo) => {
     const deleteCard = cardList.filter((card) => card.cardNo !== item.cardNo)

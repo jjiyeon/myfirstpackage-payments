@@ -1,17 +1,11 @@
-import { useContext } from 'react'
-import { CardInfoContext, UpdateCardInfoContext } from '../context/paymentContext'
-import { CardListContext, UpdateCardListContext } from '../context/cardListContext'
 import { CardBox } from '../components'
 import { Input } from '../components/common/Input'
 import { StepProps } from './Payments'
 import ui from '../styles/index.module.css'
+import useCardInfo from '@/hooks/useCardInfo'
 
 const AddComplete = ({ onStep }: StepProps) => {
-  const cardInfo = useContext(CardInfoContext)
-  const updateCardInfo = useContext(UpdateCardInfoContext)
-
-  const cardList = useContext(CardListContext)
-  const updateCardList = useContext(UpdateCardListContext)
+  const { cardInfo, updateCardInfo, cardList, updateCardList } = useCardInfo()
 
   const handleClick = () => {
     if (cardInfo && !cardInfo.cardAlias) updateCardInfo({ ...cardInfo, cardAlias: cardInfo.cardType?.name || '' })

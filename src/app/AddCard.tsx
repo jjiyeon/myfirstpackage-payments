@@ -1,13 +1,12 @@
-import { useContext, useState } from 'react'
-import { CardInfoContext, UpdateCardInfoContext } from '../context/paymentContext'
+import { useState } from 'react'
 import { CardBox, CardCvc, CardName, CardNumber, CardPassword, CardDate } from '@/components'
 import { StepProps } from './Payments'
 import ui from '../styles/index.module.css'
 import { CardType } from '@/components/CardInfo/CardType'
+import useCardInfo from '@/hooks/useCardInfo'
 
 const AddCard = ({ onStep }: StepProps) => {
-  const cardInfo = useContext(CardInfoContext)
-  const updateCardInfo = useContext(UpdateCardInfoContext)
+  const { cardInfo, updateCardInfo } = useCardInfo()
 
   const [isShowModal, setIsShowModal] = useState(false)
   const openModal = () => setIsShowModal(true)
