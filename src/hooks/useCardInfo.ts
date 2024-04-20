@@ -21,7 +21,7 @@ const useCardInfo = () => {
     setPrivateKeypad,
     cardList,
     updateCardList,
-  }
+  } as const
 }
 
 export default useCardInfo

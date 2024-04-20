@@ -7,21 +7,29 @@ import useCardInfo from '@/hooks/useCardInfo'
 const AddComplete = ({ onStep }: StepProps) => {
   const { cardInfo, updateCardInfo, cardList, updateCardList } = useCardInfo()
 
-  const handleClick = () => {
-    if (cardInfo && !cardInfo.cardAlias) updateCardInfo({ ...cardInfo, cardAlias: cardInfo.cardType?.name || '' })
-
-    if (cardList) {
+  const checkList = () => {
+    if (cardList.length) {
       const index = cardList.findIndex((item) => item.cardNo === cardInfo?.cardNo)
       const result = cardList.map((item, idx) => {
         if (idx === index) item.cardAlias = cardInfo?.cardAlias
         return item
       })
 
-      if (index >= 0) updateCardList(result)
-      else updateCardList([...result, { ...cardInfo }])
+      if (index > 0) {
+        updateCardList(result)
+      } else {
+        updateCardList([...result, { ...cardInfo }])
+      }
     } else {
       updateCardList([{ ...cardInfo }])
     }
+  }
+
+  const handleClick = () => {
+    if (cardInfo && !cardInfo.cardAlias) updateCardInfo({ ...cardInfo, cardAlias: cardInfo.cardType?.name || '' })
+
+    checkList()
+
     updateCardInfo({}) //초기값 넣어주기
     if (onStep) onStep({ step: 'list' })
   }
@@ -47,7 +55,7 @@ const AddComplete = ({ onStep }: StepProps) => {
             />
           </div>
           <div className={`${ui['button-box']} ${ui['mt-50']}`}>
-            <button className={ui['button-text']} onClick={handleClick}>
+            <button className={ui['button-text']} onClick={() => handleClick()}>
               확인
             </button>
           </div>

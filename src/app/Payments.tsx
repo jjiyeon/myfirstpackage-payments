@@ -1,5 +1,5 @@
+import { CardInfoProvider } from '..'
 import { FunnelStep } from '../constant/step'
-import CardListProvider from '../context/cardListContext'
 import AddCard from './AddCard'
 import AddComplete from './AddComplete'
 import CardList from './CardList'
@@ -11,13 +11,15 @@ export type StepProps = {
 
 const Payments = () => {
   return (
-    <CardListProvider>
+    // <CardListProvider>
+    <CardInfoProvider>
       <Stepper>
         <Stepper.Step step="add" renderStep={(updateStep) => <AddCard onStep={updateStep} />} />
-        <Stepper.Step step="list" renderStep={(updateStep) => <CardList onStep={updateStep} />} />
         <Stepper.Step step="complete" renderStep={(updateStep) => <AddComplete onStep={updateStep} />} />
+        <Stepper.Step step="list" renderStep={(updateStep) => <CardList onStep={updateStep} />} />
       </Stepper>
-    </CardListProvider>
+    </CardInfoProvider>
+    // </CardListProvider>
   )
 }
 

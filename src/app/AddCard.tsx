@@ -40,6 +40,7 @@ const AddCard = ({ onStep }: StepProps) => {
     }
 
     updateCardInfo({ ...cardInfo, cardNo: today.getTime() })
+
     if (onStep) onStep({ step: 'complete' })
   }
 

@@ -1,11 +1,11 @@
 import Payments from './app/Payments'
-import CardInfoProvider from './context/paymentContext'
+import { CardListProvider } from './context'
 
 function App() {
   return (
-    <CardInfoProvider>
+    <CardListProvider>
       <Payments />
-    </CardInfoProvider>
+    </CardListProvider>
   )
 }
 
