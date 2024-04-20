@@ -12,27 +12,29 @@ export const CardPassword = () => {
 
   return (
     <div className={ui['row-container']}>
-      <Input
-        type="password"
-        value={cardInfo?.password || ''} //
-        onFocus={() => {
-          setPrivateKeypad({ key: 'password', isOpen: true })
+      <div className={ui['input-row-container']}>
+        <Input
+          type="password"
+          value={cardInfo?.password || ''} //
+          onFocus={() => {
+            setPrivateKeypad({ key: 'password', isOpen: true })
 
-          const password = cardInfo.password
-          if (password) changeNumber(privateKeypad.key, '')
-        }}
-        readOnly={true}
-        size="xsmall"
-        label="카드 비밀번호"
-      />
-
-      {privateKeypad.isOpen && (
-        <PrivateNumber
-          privateNumberLength={2}
-          changeNumber={(value) => changeNumber(privateKeypad.key, value)}
-          close={() => setPrivateKeypad(() => ({ key: '', isOpen: false }))}
+            const password = cardInfo.password
+            if (password) changeNumber(privateKeypad.key, '')
+          }}
+          readOnly={true}
+          size="xsmall"
+          label="카드 비밀번호"
         />
-      )}
+
+        {privateKeypad.isOpen && (
+          <PrivateNumber
+            privateNumberLength={2}
+            changeNumber={(value) => changeNumber(privateKeypad.key, value)}
+            close={() => setPrivateKeypad(() => ({ key: '', isOpen: false }))}
+          />
+        )}
+      </div>
     </div>
   )
 }
