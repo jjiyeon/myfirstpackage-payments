@@ -5,7 +5,7 @@ import { StepProps } from './Payments'
 import useCardInfo from '@/hooks/useCardInfo'
 
 const CardList = ({ onStep }: StepProps) => {
-  const { updateCardInfo, cardList, updateCardList } = useCardInfo()
+  const { cardInfo, updateCardInfo, cardList, updateCardList } = useCardInfo()
 
   const deleteCard = (item: CardInfo) => {
     const deleteCard = cardList.filter((card) => card.cardNo !== item.cardNo)
@@ -26,6 +26,7 @@ const CardList = ({ onStep }: StepProps) => {
                   type="button"
                   onClick={() => {
                     updateCardInfo({ ...item })
+                    console.log(cardInfo)
                     if (onStep) onStep({ step: 'complete' })
                   }}
                 >

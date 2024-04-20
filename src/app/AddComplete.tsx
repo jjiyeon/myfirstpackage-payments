@@ -15,7 +15,7 @@ const AddComplete = ({ onStep }: StepProps) => {
         return item
       })
 
-      if (index > 0) {
+      if (index >= 0) {
         updateCardList(result)
       } else {
         updateCardList([...result, { ...cardInfo }])
