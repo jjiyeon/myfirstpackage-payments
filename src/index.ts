@@ -1,5 +1,3 @@
-export * from './styles/index.module.css'
-
 import { CardBox, CardCvc, CardDate, CardName, CardNumber, CardPassword, CardType } from './components'
 import PrivateNumber from './components/CardInfo/PrivateNumber'
 
