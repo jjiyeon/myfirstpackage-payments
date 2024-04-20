@@ -1,73 +1,75 @@
-.input-container {
-  margin: 16px 0;
-  text-align: left;
+.myfirst-box {
+  .input-container {
+    margin: 16px 0;
+    text-align: left;
 
-  p {
-    display: flex;
-    margin: 0;
-    justify-content: space-between;
-    align-items: center;
+    p {
+      display: flex;
+      margin: 0;
+      justify-content: space-between;
+      align-items: center;
+    }
+    span {
+      font-size: 12px;
+      color: #525252;
+    }
+    div {
+      margin: 0;
+    }
   }
-  span {
+
+  .input-box {
+    display: flex;
+    align-items: center;
+    margin-top: 0.375rem;
+    color: #d3d3d3;
+    border-radius: 0.25rem;
+    background-color: #ecebf1;
+  }
+
+  .input-title {
+    display: flex;
+    align-items: center;
+
     font-size: 12px;
+    line-height: 14px;
+
+    margin-bottom: 4px;
+
     color: #525252;
   }
-  div {
-    margin: 0;
+
+  .input-basic {
+    background-color: #ecebf1;
+    height: 45px;
+    width: 100%;
+    text-align: center;
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    border-color: #9ca3af;
+    border: none;
+    border-radius: 0.25rem;
   }
-}
 
-.input-box {
-  display: flex;
-  align-items: center;
-  margin-top: 0.375rem;
-  color: #d3d3d3;
-  border-radius: 0.25rem;
-  background-color: #ecebf1;
-}
+  .input-underline {
+    text-align: center;
+    border: none;
+    background: none;
+    outline: none;
 
-.input-title {
-  display: flex;
-  align-items: center;
+    margin: 16px 0;
+    padding: 4px 0;
 
-  font-size: 12px;
-  line-height: 14px;
+    border-bottom: 1px solid #383838;
+  }
 
-  margin-bottom: 4px;
+  .row-container {
+    margin: 16px 0;
+  }
 
-  color: #525252;
-}
-
-.input-basic {
-  background-color: #ecebf1;
-  height: 45px;
-  width: 100%;
-  text-align: center;
-  outline: 2px solid transparent;
-  outline-offset: 2px;
-  border-color: #9ca3af;
-  border: none;
-  border-radius: 0.25rem;
-}
-
-.input-underline {
-  text-align: center;
-  border: none;
-  background: none;
-  outline: none;
-
-  margin: 16px 0;
-  padding: 4px 0;
-
-  border-bottom: 1px solid #383838;
-}
-
-.row-container {
-  margin: 16px 0;
-}
-
-.input-row-container {
-  display: flex;
-  gap: 8px;
-  align-items: center;
+  .input-row-container {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
 }

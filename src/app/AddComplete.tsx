@@ -34,7 +34,7 @@ const AddComplete = ({ onStep }: StepProps) => {
 
   if (!cardInfo) return null
   return (
-    <main>
+    <main className={ui['myfirst-box']}>
       <div className={ui['root']}>
         <div className={`${ui['app']} ${ui['flex-column-center']}`}>
           <div className={ui['flex-column-center']}>

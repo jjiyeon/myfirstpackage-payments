@@ -1,8 +1,10 @@
-.button-box {
-  width: 100%;
-  text-align: right;
-}
+.myfirst-box {
+  .button-box {
+    width: 100%;
+    text-align: right;
+  }
 
-.button-text {
-  margin-right: 10px;
+  .button-text {
+    margin-right: 10px;
+  }
 }

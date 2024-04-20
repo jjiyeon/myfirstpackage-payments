@@ -45,22 +45,20 @@ const AddCard = ({ onStep }: StepProps) => {
   }
 
   return (
-    <main>
+    <main className={ui['myfirst-box']}>
       <div>
-        <div>
-          <h2 className={ui['page-title']}>
-            <button onClick={() => onStep && onStep({ step: 'list' })}>&lt;</button>
-            &nbsp; 카드 추가
-          </h2>
-          <CardBox openModal={openModal} closeModal={closeModal} />
-          <CardNumber />
-          <CardDate />
-          <CardName />
-          <CardCvc />
-          <CardPassword />
-          <div className={ui['button-box']}>
-            <button onClick={handleNextButtonClick}>다음</button>
-          </div>
+        <h2 className={ui['page-title']}>
+          <button onClick={() => onStep && onStep({ step: 'list' })}>&lt;</button>
+          &nbsp; 카드 추가
+        </h2>
+        <CardBox openModal={openModal} closeModal={closeModal} />
+        <CardNumber />
+        <CardDate />
+        <CardName />
+        <CardCvc />
+        <CardPassword />
+        <div className={ui['button-box']}>
+          <button onClick={handleNextButtonClick}>다음</button>
         </div>
       </div>
       {isShowModal && <CardType closeModal={() => setIsShowModal(false)} />}

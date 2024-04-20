@@ -4,27 +4,29 @@
 @import './modal.module.css';
 @import './utils.module.css';
 
-input {
-  font-size: 16px;
-}
+.myfirst-box {
+  input {
+    font-size: 16px;
+  }
 
-.app {
-  height: 100%;
-  padding: 16px 24px;
-}
+  .app {
+    height: 100%;
+    padding: 16px 24px;
+  }
 
-.page-title {
-  font-weight: 500;
-  font-size: 20px;
-  line-height: 22px;
-  display: flex;
-  align-items: center;
+  .page-title {
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 22px;
+    display: flex;
+    align-items: center;
 
-  color: #383838;
-}
+    color: #383838;
+  }
 
-button {
-  all: unset;
-  padding: 0 10px;
-  cursor: pointer;
+  button {
+    all: unset;
+    padding: 0 10px;
+    cursor: pointer;
+  }
 }

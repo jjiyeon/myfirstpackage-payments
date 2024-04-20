@@ -1,112 +1,114 @@
-.modal {
-  /* width: 375px; */
-  width: 100%;
-  height: 220px;
-
-  position: absolute;
-  left: 50%;
-  bottom: 0;
-  transform: translate(-50%, 0%);
-
-  border-radius: 5px 5px 15px 15px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-
-  background: #fff;
-  z-index: 10;
-}
-
-.modal-dimmed {
-  width: 100%;
-  height: 100%;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-
-  position: absolute;
-  top: 0;
-  left: 0;
-
-  background: rgba(0, 0, 0, 0.5);
-
-  border-radius: 30px;
-
-  z-index: 5;
-}
-
-.modal-item-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.modal-item-dot {
-  margin: 0.5rem 1rem;
-  border-radius: 50%;
-  width: 2.8rem;
-  height: 2.8rem;
-  background-color: #94dacd;
-}
-.default {
-  background-color: #94dacd;
-}
-.tomato {
-  background-color: tomato;
-}
-.gray {
-  background-color: gray;
-}
-.yellow {
-  background-color: yellow;
-}
-.blue {
-  background-color: blue;
-}
-.green {
-  background-color: green;
-}
-.purple {
-  background-color: plum;
-}
-.orange {
-  background-color: orange;
-}
-.black {
-  background-color: black;
-}
-
-.modal-item-name {
-  font-size: 12px;
-  letter-spacing: -0.085rem;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  padding: 0;
-}
-
-ul.modal {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  text-align: center;
-  list-style: none;
-  padding: 0;
-}
-
-/* li {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-
-  button {
+.myfirst-box {
+  .modal {
+    /* width: 375px; */
     width: 100%;
+    height: 220px;
+
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translate(-50%, 0%);
+
+    border-radius: 5px 5px 15px 15px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+
+    background: #fff;
+    z-index: 10;
   }
-} */
+
+  .modal-dimmed {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    background: rgba(0, 0, 0, 0.5);
+
+    border-radius: 30px;
+
+    z-index: 5;
+  }
+
+  .modal-item-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .modal-item-dot {
+    margin: 0.5rem 1rem;
+    border-radius: 50%;
+    width: 2.8rem;
+    height: 2.8rem;
+    background-color: #94dacd;
+  }
+  .default {
+    background-color: #94dacd;
+  }
+  .tomato {
+    background-color: tomato;
+  }
+  .gray {
+    background-color: gray;
+  }
+  .yellow {
+    background-color: yellow;
+  }
+  .blue {
+    background-color: blue;
+  }
+  .green {
+    background-color: green;
+  }
+  .purple {
+    background-color: plum;
+  }
+  .orange {
+    background-color: orange;
+  }
+  .black {
+    background-color: black;
+  }
+
+  .modal-item-name {
+    font-size: 12px;
+    letter-spacing: -0.085rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding: 0;
+  }
+
+  ul.modal {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    text-align: center;
+    list-style: none;
+    padding: 0;
+  }
+
+  /* li {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+  
+    button {
+      width: 100%;
+    }
+  } */
+}

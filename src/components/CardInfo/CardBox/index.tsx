@@ -41,12 +41,12 @@ export const CardBox = ({ card, closeModal }: CardBoxProps) => {
         </div>
         <div className={ui['card-bottom']}>
           <div className={ui['card-bottom__info']}>
-            <div>
-              <span className={ui['card-text']}>{card?.name ? card.name : cardInfo.name || 'NAME'}</span>
-              <span className={ui['card-text']}>
-                {card?.month ? card.month : cardInfo.month || 'MM'} / {card?.year ? card.year : cardInfo.year || 'YY'}
-              </span>
-            </div>
+            {/* <div> */}
+            <span className={ui['card-text']}>{card?.name ? card.name : cardInfo.name || 'NAME'}</span>
+            <span className={ui['card-text']}>
+              {card?.month ? card.month : cardInfo.month || 'MM'} / {card?.year ? card.year : cardInfo.year || 'YY'}
+            </span>
+            {/* </div> */}
           </div>
         </div>
       </div>
