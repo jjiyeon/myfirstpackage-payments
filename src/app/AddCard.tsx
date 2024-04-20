@@ -46,8 +46,8 @@ const AddCard = ({ onStep }: StepProps) => {
 
   return (
     <main>
-      <div className={ui['root']}>
-        <div className={ui['app']}>
+      <div>
+        <div>
           <h2 className={ui['page-title']}>
             <button onClick={() => onStep && onStep({ step: 'list' })}>&lt;</button>
             &nbsp; 카드 추가
