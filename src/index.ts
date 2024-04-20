@@ -12,6 +12,7 @@ import CardInfoProvider, {
 } from './context/paymentContext'
 
 import Payments from './app/Payments'
+import useCardInfo from './hooks/useCardInfo'
 
 export {
   CardBox,
@@ -26,6 +27,7 @@ export {
   Payments,
   cardStartMatching,
   CARD_START_NUM_LIST,
+  useCardInfo,
 }
 
 export type { CardCompanyName, CardStartNum, CardColor, CardCompany, CardInfo }
