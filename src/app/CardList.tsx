@@ -11,7 +11,6 @@ const CardList = ({ onStep }: StepProps) => {
     const deleteCard = cardList.filter((card) => card.cardNo !== item.cardNo)
     updateCardList(deleteCard)
   }
-
   return (
     <main className={ui['myfirst-box']}>
       <div className={ui['root']}>

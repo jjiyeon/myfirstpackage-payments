@@ -6,7 +6,6 @@ export const UpdateCardListContext = createContext<(payload: Array<CardInfo>) =>
 
 export const CardListProvider = ({ children }: { children: React.ReactNode }) => {
   const [cardList, setCardList] = useState<Array<CardInfo>>([])
-
   return (
     <>
       <UpdateCardListContext.Provider value={setCardList}>

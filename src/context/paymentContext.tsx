@@ -24,29 +24,45 @@ export type CardCompany = {
 }
 
 export type CardNumber = {
-  [index: string]: string
   first: string
   second: string
   third: string
   fourth: string
 }
-export type CardInfo = {
-  cardNo?: number
-  cardNumber?: CardNumber
-  month?: string
-  year?: string
-  name?: string
-  password?: string
-  cvc?: string
-  cardType?: CardCompany
-  cardAlias?: string
+export interface CardInfo {
+  cardNo: number
+  cardNumber: CardNumber
+  month: string
+  year: string
+  name: string
+  password: string
+  cvc: string
+  cardType: CardCompany
+  cardAlias: string
 }
 
-export const CardInfoContext = createContext<CardInfo>({})
+export const initialCardInfo: CardInfo = {
+  cardNo: 0,
+  cardNumber: {
+    first: '',
+    second: '',
+    third: '',
+    fourth: '',
+  },
+  month: '',
+  year: '',
+  name: '',
+  password: '',
+  cvc: '',
+  cardType: {},
+  cardAlias: '',
+}
+
+export const CardInfoContext = createContext<CardInfo>(initialCardInfo)
 export const UpdateCardInfoContext = createContext<(payload: CardInfo) => void>(() => {})
 
 export const CardInfoProvider = ({ children }: { children: React.ReactNode }) => {
-  const [cardInfo, setCardInfo] = useState<CardInfo>({})
+  const [cardInfo, setCardInfo] = useState<CardInfo>(initialCardInfo)
 
   return (
     <>

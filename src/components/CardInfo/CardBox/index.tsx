@@ -15,10 +15,10 @@ export const CardBox = ({ card, closeModal }: CardBoxProps) => {
   const cardNumberValue = () => {
     const cardNumber = cardInfo.cardNumber || card?.cardNumber
     return {
-      first: cardNumber?.first || '',
-      second: cardNumber?.second || '',
-      third: cardNumber?.third ? checkAllMasking(cardNumber.third, cardNumber.third.length) : '',
-      fourth: cardNumber?.fourth ? checkAllMasking(cardNumber.fourth, cardNumber.fourth.length) : '',
+      first: cardNumber.first || '',
+      second: cardNumber.second || '',
+      third: cardNumber.third ? checkAllMasking(cardNumber.third, cardNumber.third.length) : '',
+      fourth: cardNumber.fourth ? checkAllMasking(cardNumber.fourth, cardNumber.fourth.length) : '',
     }
   }
 

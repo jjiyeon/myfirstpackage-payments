@@ -35,10 +35,10 @@ export const CardNumber = () => {
     updateCardInfo({
       ...cardInfo,
       cardNumber: {
-        first: cardInfo.cardNumber?.first ?? '',
-        second: cardInfo.cardNumber?.second ?? '',
-        third: cardInfo.cardNumber?.third ?? '',
-        fourth: cardInfo.cardNumber?.fourth ?? '',
+        first: cardInfo.cardNumber.first,
+        second: cardInfo.cardNumber.second,
+        third: cardInfo.cardNumber.third,
+        fourth: cardInfo.cardNumber.fourth,
         [key]: value,
       },
     })
@@ -87,10 +87,10 @@ export const CardNumber = () => {
       updateCardInfo({
         ...cardInfo,
         cardNumber: {
-          second: cardInfo.cardNumber?.second ?? '',
-          third: cardInfo.cardNumber?.third ?? '',
-          fourth: cardInfo.cardNumber?.fourth ?? '',
-          [name]: value,
+          second: cardInfo.cardNumber.second,
+          third: cardInfo.cardNumber.third,
+          fourth: cardInfo.cardNumber.fourth,
+          first: value,
         },
         cardType,
       })

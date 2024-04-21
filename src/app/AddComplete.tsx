@@ -3,6 +3,7 @@ import { Input } from '../components/common/Input'
 import { StepProps } from './Payments'
 import ui from '../styles/index.module.css'
 import useCardInfo from '@/hooks/useCardInfo'
+import { initialCardInfo } from '@/context'
 
 const AddComplete = ({ onStep }: StepProps) => {
   const { cardInfo, updateCardInfo, cardList, updateCardList } = useCardInfo()
@@ -14,7 +15,6 @@ const AddComplete = ({ onStep }: StepProps) => {
         if (idx === index) item.cardAlias = cardInfo?.cardAlias
         return item
       })
-
       if (index >= 0) {
         updateCardList(result)
       } else {
@@ -29,8 +29,7 @@ const AddComplete = ({ onStep }: StepProps) => {
     if (cardInfo && !cardInfo.cardAlias) updateCardInfo({ ...cardInfo, cardAlias: cardInfo.cardType?.name || '' })
 
     checkList()
-
-    updateCardInfo({}) //초기값 넣어주기
+    updateCardInfo(initialCardInfo) //초기값 넣어주기
     if (onStep) onStep({ step: 'list' })
   }
 
