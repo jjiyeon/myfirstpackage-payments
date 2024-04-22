@@ -11,6 +11,8 @@ import CardInfoProvider, {
   CARD_START_NUM_LIST,
 } from './context/paymentContext'
 
+import { CardListProvider } from './context'
+
 import Payments from './app/Payments'
 import useCardInfo from './hooks/useCardInfo'
 
@@ -28,6 +30,7 @@ export {
   cardStartMatching,
   CARD_START_NUM_LIST,
   useCardInfo,
+  CardListProvider,
 }
 
 export type { CardCompanyName, CardStartNum, CardColor, CardCompany, CardInfo }
